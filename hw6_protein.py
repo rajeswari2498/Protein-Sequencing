@@ -17,7 +17,11 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    text=open(filename,"r")
+    read_file=text.read()
+    text.close()
+    result=read_file.replace("\n","")
+    return result
 
 
 '''
@@ -27,7 +31,17 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
+    list=[]
+    list1=[]
+    for i in range(startIndex,len(dna),3):
+        list.append(dna[i:i+3])
+        if dna[i:i+3]=="TAG" or dna[i:i+3]=="TAA" or dna[i:i+3]=="TGA":
+            break
+    for each in list:
+        each=each.replace("T","U")
+        list1.append(each)
+    # print(list1)
+    return list1     
 
 
 '''
@@ -36,9 +50,18 @@ makeCodonDictionary(filename)
 Parameters: str
 Returns: dict mapping strs to strs
 '''
-def makeCodonDictionary(filename):
+def makeCodonDictionary(filename):  
     import json
-    return
+    f=open(filename,"r")
+    data=json.loads(f.read())
+    # print(data)
+    dictionary={}
+    for key,value in data.items():
+        for each in value:
+            replacing=each.replace("T","U")
+            dictionary[replacing]=key
+    # print(dictionary)
+    return dictionary
 
 
 '''
@@ -48,7 +71,14 @@ Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
 def generateProtein(codons, codonD):
-    return
+    protein_list=[]
+    for each in codons:
+        if each=="AUG" and "Start" not in protein_list:
+            protein_list.append("Start")
+        else:
+            protein_list.append(codonD[each])
+    # print(protein_list) 
+    return protein_list
 
 
 '''
@@ -58,7 +88,25 @@ Parameters: str ; str
 Returns: 2D list of strs
 '''
 def synthesizeProteins(dnaFilename, codonFilename):
-    return
+    dna_read=readFile(dnaFilename)
+    codon_dictionary=makeCodonDictionary(codonFilename)
+    # print(dna_read,"\n",codon_dictionary)
+    result_list=[]
+    count=0
+    j=0
+    while j<len(dna_read):
+        if dna_read[j:j+3]=="ATG":
+            startIndex=j
+            make_dnatorna=dnaToRna(dna_read,startIndex)
+            make_rnatoprotein=generateProtein(make_dnatorna,codon_dictionary)
+            result_list.append(make_rnatoprotein)
+            j=j+(3*len(make_dnatorna))
+        else:
+            j=j+1
+            count=count+1
+    # print(count)
+    # print(result_list)
+    return result_list
 
 
 def runWeek1():
@@ -186,6 +234,11 @@ def runFullProgram():
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
+    test.testReadFile()
+    test.testDnaToRna()
+    test.testMakeCodonDictionary()
+    test.testGenerateProtein()
+    test.testSynthesizeProteins()
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
