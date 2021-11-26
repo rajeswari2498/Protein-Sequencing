@@ -72,11 +72,12 @@ Returns: list of strs
 '''
 def generateProtein(codons, codonD):
     protein_list=[]
-    for i in range(0,len(codonD)):
-        protein_list.append(codonD[i])
     for each in codons:
         if each=="AUG" and "Start" not in protein_list:
-            protein_list.append(each)
+            protein_list.append("Start")
+        else:
+            protein_list.append(codonD[each])
+    # print(protein_list) 
     return protein_list
 
 
@@ -87,7 +88,25 @@ Parameters: str ; str
 Returns: 2D list of strs
 '''
 def synthesizeProteins(dnaFilename, codonFilename):
-    return
+    dna_read=readFile(dnaFilename)
+    codon_dictionary=makeCodonDictionary(codonFilename)
+    # print(dna_read,"\n",codon_dictionary)
+    result_list=[]
+    count=0
+    j=0
+    while j<len(dna_read):
+        if dna_read[j:j+3]=="ATG":
+            startIndex=j
+            make_dnatorna=dnaToRna(dna_read,startIndex)
+            make_rnatoprotein=generateProtein(make_dnatorna,codon_dictionary)
+            result_list.append(make_rnatoprotein)
+            j=j+(3*len(make_dnatorna))
+        else:
+            j=j+1
+            count=count+1
+    # print(count)
+    # print(result_list)
+    return result_list
 
 
 def runWeek1():
@@ -219,10 +238,11 @@ if __name__ == "__main__":
     test.testDnaToRna()
     test.testMakeCodonDictionary()
     test.testGenerateProtein()
-    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    # test.week1Tests()
-    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    # runWeek1()
+    test.testSynthesizeProteins()
+    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    test.week1Tests()
+    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    runWeek1()
 
     ## Uncomment these for Week 2 ##
     """
