@@ -17,7 +17,11 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    text=open(filename,"r")
+    read_file=text.read()
+    text.close()
+    result=read_file.replace("\n","")
+    return result
 
 
 '''
@@ -27,7 +31,17 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
+    list=[]
+    list1=[]
+    for i in range(startIndex,len(dna),3):
+        list.append(dna[i:i+3])
+        if dna[i:i+3]=="TAG" or dna[i:i+3]=="TAA" or dna[i:i+3]=="TGA":
+            break
+    for each in list:
+        each=each.replace("T","U")
+        list1.append(each)
+    # print(list1)
+    return list1     
 
 
 '''
@@ -36,9 +50,18 @@ makeCodonDictionary(filename)
 Parameters: str
 Returns: dict mapping strs to strs
 '''
-def makeCodonDictionary(filename):
+def makeCodonDictionary(filename):  
     import json
-    return
+    f=open(filename,"r")
+    data=json.loads(f.read())
+    # print(data)
+    dictionary={}
+    for key,value in data.items():
+        for each in value:
+            replacing=each.replace("T","U")
+            dictionary[replacing]=key
+    # print(dictionary)
+    return dictionary
 
 
 '''
@@ -48,7 +71,13 @@ Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
 def generateProtein(codons, codonD):
-    return
+    protein_list=[]
+    for i in range(0,len(codonD)):
+        protein_list.append(codonD[i])
+    for each in codons:
+        if each=="AUG" and "Start" not in protein_list:
+            protein_list.append(each)
+    return protein_list
 
 
 '''
@@ -186,10 +215,14 @@ def runFullProgram():
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    runWeek1()
+    test.testReadFile()
+    test.testDnaToRna()
+    test.testMakeCodonDictionary()
+    test.testGenerateProtein()
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    # test.week1Tests()
+    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    # runWeek1()
 
     ## Uncomment these for Week 2 ##
     """
