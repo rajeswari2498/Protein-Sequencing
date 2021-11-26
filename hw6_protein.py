@@ -72,12 +72,11 @@ Returns: list of strs
 '''
 def generateProtein(codons, codonD):
     protein_list=[]
+    for i in range(0,len(codonD)):
+        protein_list.append(codonD[i])
     for each in codons:
         if each=="AUG" and "Start" not in protein_list:
-            protein_list.append("Start")
-        else:
-            protein_list.append(codonD[each])
-    # print(protein_list) 
+            protein_list.append(each)
     return protein_list
 
 
