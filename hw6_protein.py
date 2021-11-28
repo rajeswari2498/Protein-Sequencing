@@ -170,7 +170,40 @@ Parameters: 2D list of strs ; 2D list of strs ; float
 Returns: 2D list of values
 '''
 def findAminoAcidDifferences(proteinList1, proteinList2, cutoff):
-    return
+    three_element_list=[]
+    list1_protein=combineProteins(proteinList1)
+    list1_amino_acid=aminoAcidDictionary(list1_protein)
+    # print(proteinList1)
+    list2_protein=combineProteins(proteinList2)
+    list2_amino_acid=aminoAcidDictionary(list2_protein)
+    # print(proteinList2)
+    # print(cutoff)
+    list1_diff=list(set(list2_protein) - set(list1_protein))
+    list2_diff=list(set(list1_protein) - set(list2_protein))
+    for each_diff1 in list1_diff:
+        list1_amino_acid[each_diff1]=0
+    for each_diff2 in list2_diff:
+        list2_amino_acid[each_diff2]=0
+    length1=len(list1_protein)
+    aminoacid_freq1={}
+    for each_1 in list1_amino_acid:
+        aminoacid_freq1[each_1]=list1_amino_acid[each_1]/length1
+    length2=len(list2_protein)
+    aminoacid_freq2={}
+    for each_2 in list2_amino_acid:
+        aminoacid_freq2[each_2]=list2_amino_acid[each_2]/length2
+    for key,value in aminoacid_freq1.items():
+        list_aminoacid=[]
+        if key!="Start" and key!="Stop":
+            if key in aminoacid_freq2.keys():
+                diff_frequencies=abs(aminoacid_freq1[key]-aminoacid_freq2[key])
+                if diff_frequencies>cutoff:
+                    list_aminoacid.append(key)
+                    list_aminoacid.append(aminoacid_freq1[key])
+                    list_aminoacid.append(aminoacid_freq2[key])
+                    three_element_list.append(list_aminoacid) 
+    # print(three_element_list)               
+    return three_element_list
 
 
 '''
@@ -263,13 +296,12 @@ if __name__ == "__main__":
     test.testCommonProteins()
     test.testCombineProteins()
     test.testAminoAcidDictionary()
+    test.testFindAminoAcidDifferences()
     ## Uncomment these for Week 2 ##
-    """
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
-    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    runWeek2()
-    """
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    # runWeek2()
 
     ## Uncomment these for Week 3 ##
     """
