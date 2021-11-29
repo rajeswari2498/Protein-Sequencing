@@ -312,7 +312,17 @@ Parameters: list of strs ; 2D list of values
 Returns: list of strs
 '''
 def makeEdgeList(labels, biggestDiffs):
-    return
+    new_list=[]
+    list=[]
+    for each in biggestDiffs:
+       list.append(each[0])
+    for each1 in labels:
+        if each1 in list:
+            new_list.append("black")
+        else:
+            new_list.append("white")
+    # print(new_list)
+    return new_list
 
 
 '''
@@ -353,6 +363,7 @@ if __name__ == "__main__":
     ## Uncomment these for Week 3 ##
     test.testMakeAminoAcidLabels()
     test.testSetupChartData()
+    test.testMakeEdgeList()
     # print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
     # test.week3Tests()
     # print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
