@@ -361,10 +361,10 @@ if __name__ == "__main__":
     # runWeek2()
 
     ## Uncomment these for Week 3 ##
-    test.testMakeAminoAcidLabels()
-    test.testSetupChartData()
-    test.testMakeEdgeList()
+    # test.testMakeAminoAcidLabels()
+    # test.testSetupChartData()
+    # test.testMakeEdgeList()
     # print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
     # test.week3Tests()
     # print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
-    # # runFullProgram()
+    runFullProgram()
