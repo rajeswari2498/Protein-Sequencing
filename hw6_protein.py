@@ -251,7 +251,18 @@ Parameters: 2D list of strs ; 2D list of strs
 Returns: list of strs
 '''
 def makeAminoAcidLabels(proteinList1, proteinList2):
-    return
+    proteinlist_1=combineProteins(proteinList1)
+    proteinlist_2=combineProteins(proteinList2)
+    aminoacid_list1=aminoAcidDictionary(proteinlist_1)
+    aminoacid_list2=aminoAcidDictionary(proteinlist_2)
+    # print(aminoacid_list1,aminoacid_list2)
+    amino_acid1=list(aminoacid_list1.keys())
+    amino_acid2=list(aminoacid_list2.keys())
+    # print(amino_acid1,amino_acid2)
+    final_list=list(set(amino_acid2)-set(amino_acid1))
+    sorted_list=sorted(amino_acid1+final_list)
+    # print(sorted_list)
+    return sorted_list
 
 
 '''
@@ -310,17 +321,18 @@ if __name__ == "__main__":
     # runWeek1()
 
 
-    test.testCommonProteins()
-    test.testCombineProteins()
-    test.testAminoAcidDictionary()
-    test.testFindAminoAcidDifferences()
-    # Uncomment these for Week 2 ##
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
-    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    runWeek2()
+    # test.testCommonProteins()
+    # test.testCombineProteins()
+    # test.testAminoAcidDictionary()
+    # test.testFindAminoAcidDifferences()
+    # # Uncomment these for Week 2 ##
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    # runWeek2()
 
     ## Uncomment these for Week 3 ##
+    test.testMakeAminoAcidLabels()
     """
     print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
     test.week3Tests()
