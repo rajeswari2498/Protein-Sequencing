@@ -295,6 +295,13 @@ Returns: None
 '''
 def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
     import matplotlib.pyplot as plt
+    w=0.35
+    plt.bar(xLabels, freqList1, width=-w, align='edge', label=label1, edgecolor=edgeList)
+    plt.bar(xLabels, freqList2, width=w, align='edge', label=label2, edgecolor=edgeList)
+    plt.xticks(rotation="vertical")
+    plt.legend()
+    plt.title("Amino Acids of frequency")
+    plt.show()
     return
 
 
@@ -346,9 +353,7 @@ if __name__ == "__main__":
     ## Uncomment these for Week 3 ##
     test.testMakeAminoAcidLabels()
     test.testSetupChartData()
-    """
-    print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
-    test.week3Tests()
-    print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
-    runFullProgram()
-    """
+    # print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
+    # test.week3Tests()
+    # print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
+    # # runFullProgram()
