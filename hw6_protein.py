@@ -213,6 +213,23 @@ Parameters: 2D list of strs ; 2D list of values
 Returns: None
 '''
 def displayTextResults(commonalities, differences):
+    # print(commonalities)
+    print("\n","These are the common proteins","\n")
+    for each in sorted(commonalities):
+        # print(each)
+        temp=""
+        for i in each:
+            if i!="Start" and i!="Stop":
+                temp=temp+"-"+i
+        print(temp.strip("-"),"\n") 
+    print("\n","These are the amino acids that occured at the most different rates","\n")
+    # print(differences)  
+    for percentage in differences:
+        list1_percentage=percentage[1]
+        list2_percentage=percentage[2]
+        percentage_1="{:.2%}".format(list1_percentage)
+        percentage_2="{:.2%}".format(list2_percentage)
+        print(percentage[0],percentage_1,"in seq1,",percentage_2,"in seq2")
     return
 
 
@@ -297,11 +314,11 @@ if __name__ == "__main__":
     test.testCombineProteins()
     test.testAminoAcidDictionary()
     test.testFindAminoAcidDifferences()
-    ## Uncomment these for Week 2 ##
-    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    # test.week2Tests()
-    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    # runWeek2()
+    # Uncomment these for Week 2 ##
+    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    test.week2Tests()
+    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    runWeek2()
 
     ## Uncomment these for Week 3 ##
     """
