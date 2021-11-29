@@ -332,6 +332,16 @@ Parameters: no parameters
 Returns: None
 '''
 def runFullProgram():
+    human_proteins=synthesizeProteins("data/human_p53.txt", "data/codon_table.json")
+    elephant_proteins=synthesizeProteins("data/elephant_p53.txt", "data/codon_table.json")
+    commonalities=commonProteins(human_proteins,elephant_proteins)
+    differences=findAminoAcidDifferences(human_proteins,elephant_proteins,0.005)
+    displayTextResults(commonalities,differences)
+    labels=makeAminoAcidLabels(human_proteins,elephant_proteins)
+    f1=setupChartData(labels,human_proteins)
+    f2=setupChartData(labels,elephant_proteins)
+    edges=makeEdgeList(labels,differences)
+    createChart(labels,f1,"Human",f2,"elephant",edgeList=edges)
     return
 
 
@@ -361,10 +371,10 @@ if __name__ == "__main__":
     # runWeek2()
 
     ## Uncomment these for Week 3 ##
-    test.testMakeAminoAcidLabels()
-    test.testSetupChartData()
-    test.testMakeEdgeList()
+    # test.testMakeAminoAcidLabels()
+    # test.testSetupChartData()
+    # test.testMakeEdgeList()
     # print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
     # test.week3Tests()
     # print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
-    # # runFullProgram()
+    runFullProgram()
